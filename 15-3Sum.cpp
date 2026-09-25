@@ -2,29 +2,44 @@ class Solution {
 public:
     vector<vector<int>> threeSum(vector<int>& nums) {
         sort(nums.begin(), nums.end());
-        vector<vector<int>> res;
 
-        for (int i = 0; i < nums.size(); i++) {
-            if (nums[i] > 0) break;
-            if (i > 0 && nums[i] == nums[i - 1]) continue; // yaha pe we are skipping a duplicate taaki we align with the qn rules
+        vector<vector<int>> result;
+        int size = nums.size();
 
-            int left = i + 1, right = nums.size() - 1;
+        for (int first = 0; first < size - 2 && nums[first] <= 0; ++first) {
+            if (first > 0 && nums[first] == nums[first - 1]) {
+                continue;
+            }
+            int left = first + 1;
+            int right = size - 1;
+
             while (left < right) {
-                int sum = nums[i] + nums[left] + nums[right];
-                if (sum > 0) {
-                    right--; // becoz so we could get a smaller val
-                } else if (sum < 0) {
-                    left++; //so we could get a larger val
+                int currentSum = nums[first] + nums[left] + nums[right];
+
+                if (currentSum < 0) {
+                    ++left;
+                } else if (currentSum > 0) {
+                    --right;
                 } else {
-                    res.push_back({nums[i], nums[left], nums[right]});
-                    left++;
-                    right--; //means sum==0, yani we push the val to the result
+                    result.push_back({nums[first], nums[left], nums[right]});
+
+                    // Move both pointers
+                    ++left;
+                    --right;
+
+                    // Skip duplicate values for the second number
                     while (left < right && nums[left] == nums[left - 1]) {
-                        left++;
-                    }//this loop is imp as for skipping duplicates after already found a valid triplet 
+                        ++left;
+                    }
+
+                    // Skip duplicate values for the third number
+                    while (left < right && nums[right] == nums[right + 1]) {
+                        --right;
+                    }
                 }
             }
         }
-        return res;
+
+        return result;
     }
 };
