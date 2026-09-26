@@ -13,38 +13,40 @@ public:
     }
 };
 */
+
 class Solution {
 public:
     Node* copyRandomList(Node* head) {
-        if (!head) {
-            return nullptr;
+                if (!head) return nullptr;
+        
+        Node* curr = head;
+        while (curr) {
+            Node* new_node = new Node(curr->val);
+            new_node->next = curr->next;
+            curr->next = new_node;
+            curr = new_node->next;
         }
-
-        Node* l1 = head;
-        while (l1) {
-            Node* l2 = new Node(l1->val);
-            l2->next = l1->random;
-            l1->random = l2;
-            l1 = l1->next;
+        
+        curr = head;
+        while (curr) {
+            if (curr->random) {
+                curr->next->random = curr->random->next;
+            }
+            curr = curr->next->next;
         }
-
-        Node* newHead = head->random;
-
-        l1 = head;
-        while (l1) {
-            Node* l2 = l1->random;
-            l2->random = (l2->next != nullptr) ? l2->next->random : nullptr;
-            l1 = l1->next;
+        
+        Node* old_head = head;
+        Node* new_head = head->next;
+        Node* curr_old = old_head;
+        Node* curr_new = new_head;
+        
+        while (curr_old) {
+            curr_old->next = curr_old->next->next;
+            curr_new->next = curr_new->next ? curr_new->next->next : nullptr;
+            curr_old = curr_old->next;
+            curr_new = curr_new->next;
         }
-
-        l1 = head;
-        while (l1) {
-            Node* l2 = l1->random;
-            l1->random = l2->next;
-            l2->next = (l1->next != nullptr) ? l1->next->random : nullptr;
-            l1 = l1->next;
-        }
-
-        return newHead;
+        
+        return new_head;       
     }
 };
