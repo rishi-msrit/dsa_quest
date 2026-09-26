@@ -15,8 +15,6 @@ public:
 
         if (count1 == count2)
             return true;
-
-        // Sliding window
         for (int i = s1.size(); i < s2.size(); i++) {
 
             count2[s2[i] - 'a']++;
