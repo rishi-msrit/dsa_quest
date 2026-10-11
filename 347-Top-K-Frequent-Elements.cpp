@@ -12,7 +12,7 @@ public:
         for (auto p : mp) {
             pq.push({p.second, p.first});
         }
-        //store our ans in vector
+        // store our ans in vector
         vector<int> ans;
         while (k--) {
             ans.push_back(pq.top().second);
@@ -21,3 +21,4 @@ public:
         return ans;
     }
 };
+
