@@ -17,8 +17,7 @@ public:
             if(x != y){
                 pq.push(abs(x-y));
             }
-            if( x==y  && pq.size() == 0){pq.push(0);}
         }
-        return pq.top();        
+        return pq.empty() ? 0 : pq.top();
     }
 };
