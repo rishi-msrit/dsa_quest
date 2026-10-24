@@ -1,0 +1,30 @@
+class Solution {
+public:
+    TreeNode* ans = NULL;
+    int fun(TreeNode* node, TreeNode* p, TreeNode* q) {
+        if (node == NULL)
+            return 0;
+
+        //search left and right subtree
+        int left = fun(node->left, p, q);
+        int right = fun(node->right, p, q);
+
+        int self = 0;
+        if (node == p || node == q)
+            self = 1;
+
+        int total = left + self + right;
+
+        // If both p and q are found in this subtree
+        // and answer is not already assigned
+        if (total == 2 && ans == NULL)
+            ans = node;
+        return total;
+    }
+
+    TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
+        ans = NULL;
+        fun(root, p, q);
+        return ans;
+    }
+};
