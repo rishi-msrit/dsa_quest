@@ -17,7 +17,7 @@ public:
             greater<pair<int,int>>
         > pq;
 
-        vector<int> dist(V + 1, 1e9);
+        vector<int> dist(V + 1, INT_MAX);
 
         dist[src] = 0;
         pq.push({0, src});
@@ -34,19 +34,15 @@ public:
                 int wt = it.second;
 
                 if(dis + wt < dist[adjnode]) {
-
                     dist[adjnode] = dis + wt;
                     pq.push({dist[adjnode], adjnode});
                 }
             }
         }
         int ans = 0;
-
         for(int i = 1; i <= V; i++) {
-
-            if(dist[i] == 1e9)
+            if(dist[i] == INT_MAX)
                 return -1;
-
             ans = max(ans, dist[i]);
         }
 
