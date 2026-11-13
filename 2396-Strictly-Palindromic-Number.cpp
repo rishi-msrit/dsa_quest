@@ -16,3 +16,5 @@ public:
         return true;
     }
 };
+
+// or else just return false, its proven by maths that no int > 4 can stisfy this cond
